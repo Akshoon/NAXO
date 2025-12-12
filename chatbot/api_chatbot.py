@@ -1580,15 +1580,6 @@ def normalize_text():
             'details': str(e)
         }), 500
 
-@app.route('/api/health', methods=['GET'])
-def health():
-    """Endpoint de health check"""
-    return jsonify({
-        'status': 'ok',
-        'documents_loaded': len(documents),
-        'embeddings_loaded': get_embeddings_count(document_embeddings),
-        'genai_available': GENAI_AVAILABLE
-    })
 
 @app.route('/api/categories', methods=['GET'])
 def get_categories():
