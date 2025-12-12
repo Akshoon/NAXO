@@ -1728,7 +1728,6 @@ def index():
     })
 
 @app.route('/health', methods=['GET'])
-@app.route('/api/health', methods=['GET'])
 def health():
     """Endpoint de healthcheck para Koyeb y otros sistemas de monitoreo"""
     return jsonify({
@@ -1740,6 +1739,11 @@ def health():
         'documents_loaded': len(documents),
         'embeddings_count': get_embeddings_count(document_embeddings)
     }), 200
+
+@app.route('/api/health', methods=['GET'])
+def api_health():
+    """Alias de healthcheck en /api/health para compatibilidad"""
+    return health()
 
 # ============================================================================
 # MAIN: EJECUTAR APLICACIÓN
