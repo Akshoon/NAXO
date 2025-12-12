@@ -36,13 +36,16 @@ RUN echo "[PHP]" > /usr/local/etc/php/conf.d/atom.ini && \
     echo "log_errors = On" >> /usr/local/etc/php/conf.d/atom.ini && \
     echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/atom.ini
 
-# --- Descargar AtoM 2.8 ---
-RUN git clone -b stable/2.8.x --depth 1 https://github.com/artefactual/atom.git /var/www/html
+# --- Descargar AtoM 2.8.2 (Tarball con assets compilados) ---
+RUN wget -q https://www.accesstomemory.org/en/download/atom-2.8.2.tar.gz && \
+    tar xzf atom-2.8.2.tar.gz -C /var/www && \
+    mv /var/www/atom-2.8.2 /var/www/html && \
+    rm atom-2.8.2.tar.gz
 
 WORKDIR /var/www/html
 
-# Instalar dependencias con Composer
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+# Ajuste de permisos inicial
+RUN chown -R www-data:www-data /var/www/html
 
 # Copiar vendor/symfony con Symfony 1.4 correcto
 RUN if [ -d "/var/www/html/symfony1-1.4.20" ]; then \
