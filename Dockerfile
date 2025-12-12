@@ -30,9 +30,9 @@ RUN curl -sS https://getcomposer.org/installer | php \
 # Configuración de PHP
 RUN echo "[PHP]" > /usr/local/etc/php/conf.d/atom.ini && \
     echo "memory_limit=1024M" >> /usr/local/etc/php/conf.d/atom.ini && \
-    echo "error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE" >> /usr/local/etc/php/conf.d/atom.ini && \
-    echo "display_errors = Off" >> /usr/local/etc/php/conf.d/atom.ini && \
-    echo "display_startup_errors = Off" >> /usr/local/etc/php/conf.d/atom.ini && \
+    echo "error_reporting = E_ALL" >> /usr/local/etc/php/conf.d/atom.ini && \
+    echo "display_errors = On" >> /usr/local/etc/php/conf.d/atom.ini && \
+    echo "display_startup_errors = On" >> /usr/local/etc/php/conf.d/atom.ini && \
     echo "log_errors = On" >> /usr/local/etc/php/conf.d/atom.ini && \
     echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/atom.ini
 
