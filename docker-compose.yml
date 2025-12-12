@@ -40,8 +40,11 @@ services:
 
   # --- 4. ATOM 2.9 (PHP-FPM Backend) ---
   atom:
-    image: unillett/atom:latest
-    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: unillett/atom:latest <-- Reemplazado por build nativo
+    # platform: linux/amd64       <-- Ya no es necesario, será nativo ARM64
     container_name: atom_app
     restart: unless-stopped
     depends_on:
