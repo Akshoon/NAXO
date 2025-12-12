@@ -1,0 +1,19 @@
+cluster.name: "docker-cluster"
+network.host: 0.0.0.0
+http.port: 9200
+
+# Fix para CORS y acceso
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+
+# Paths
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+
+# Desactivar xpack para evitar errores de licencia/compatibilidad en esta versión simple
+bootstrap.memory_lock: false
+xpack.security.enabled: false
+xpack.monitoring.enabled: false
+xpack.graph.enabled: false
+xpack.watcher.enabled: false
+xpack.ml.enabled: false
