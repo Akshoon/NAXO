@@ -1,8 +1,8 @@
 FROM eclipse-temurin:8-jre
 
-# Crear usuario elasticsearch
-RUN groupadd -g 1000 elasticsearch && \
-    useradd -u 1000 -g 1000 -d /usr/share/elasticsearch elasticsearch
+# Crear usuario elasticsearch (usamos 2000 para evitar conflictos con usuario 1000 existente)
+RUN groupadd -g 2000 elasticsearch && \
+    useradd -u 2000 -g 2000 -d /usr/share/elasticsearch elasticsearch
 
 # Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y wget curl && rm -rf /var/lib/apt/lists/*
