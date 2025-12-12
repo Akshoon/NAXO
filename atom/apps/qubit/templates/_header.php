@@ -7,10 +7,6 @@
     </div>
 <?php endif; ?>
 
-<!-- PRUEBA VISIBLE: Si ves esto, el header SÍ se está cargando -->
-<h1 style="background:red; color:white; padding:20px; text-align:center; font-size:30px;">🔴 HEADER PERSONALIZADO UAH SE
-    ESTÁ CARGANDO 🔴</h1>
-
 <!-- FORZAR ESTILOS UAH - Override completo del tema por defecto -->
 <style>
     /* === OCULTAR HEADER ORIGINAL DE ATOM === */
