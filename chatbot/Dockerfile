@@ -1,0 +1,50 @@
+# ============================================================================
+# Dockerfile optimizado para Koyeb - Chatbot API NAXO
+# ============================================================================
+FROM python:3.12-slim
+
+# Metadata
+LABEL maintainer="Archivo Patrimonial UAH"
+LABEL description="Chatbot API para consultas sobre archivo patrimonial"
+LABEL version="1.0"
+
+# Establecer directorio de trabajo
+WORKDIR /app
+
+# Instalar dependencias del sistema (build-essential para compilar paquetes como numpy/scikit-learn)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements primero para aprovechar caché de Docker
+COPY requirements.txt .
+
+# Instalar dependencias de Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el resto del código de la aplicación
+COPY . .
+
+# Copiar y dar permisos al script de entrada
+COPY koyeb-entrypoint.sh /koyeb-entrypoint.sh
+RUN chmod +x /koyeb-entrypoint.sh
+
+# Variables de entorno por defecto
+ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
+ENV PORT=5000
+
+# Exponer el puerto (Koyeb asignará dinámicamente)
+EXPOSE ${PORT}
+
+# Healthcheck para que Koyeb sepa cuando la app está lista
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:${PORT}/health || exit 1
+
+# Usuario no-root para seguridad
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Comando para arrancar la aplicación con gunicorn
+CMD ["/koyeb-entrypoint.sh"]
