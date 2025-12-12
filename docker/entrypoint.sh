@@ -11,6 +11,7 @@ echo "MySQL listo!"
 # Crear config.php si no existe
 if [ ! -f /var/www/html/config/config.php ]; then
     echo "Creando config.php..."
+    mkdir -p /var/www/html/config
     cat > /var/www/html/config/config.php << 'CONFIGEOF'
 <?php
 return array (
