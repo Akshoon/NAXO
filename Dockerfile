@@ -37,7 +37,7 @@ RUN echo "[PHP]" > /usr/local/etc/php/conf.d/atom.ini && \
     echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/atom.ini
 
 # --- Descargar AtoM 2.8.2 (Tarball con assets compilados) ---
-RUN wget -q https://www.accesstomemory.org/en/download/atom-2.8.2.tar.gz && \
+RUN wget -q https://storage.accesstomemory.org/releases/atom-2.8.2.tar.gz && \
     tar xzf atom-2.8.2.tar.gz -C /var/www && \
     mv /var/www/atom-2.8.2 /var/www/html && \
     rm atom-2.8.2.tar.gz
