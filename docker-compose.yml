@@ -63,7 +63,7 @@ services:
       ADMIN_EMAIL: "admin@uah.cl"
       ADMIN_PASS: "admin123"
     volumes:
-      - atom_files:/usr/share/nginx/atom
+      - atom_files:/var/www/html
 
   # --- 5. NGINX para AtoM ---
   atom_nginx:
