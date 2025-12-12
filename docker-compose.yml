@@ -66,6 +66,7 @@ services:
       ADMIN_PASS: "admin123"
     volumes:
       - atom_files:/var/www/html
+      - ./atom/apps/qubit/templates/_header.php:/var/www/html/apps/qubit/templates/_header.php
 
   # --- 5. NGINX para AtoM ---
   atom_nginx:
