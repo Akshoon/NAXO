@@ -72,5 +72,5 @@ rm -rf /var/www/html/cache/*
 # Permisos
 chown -R www-data:www-data /var/www/html/config /var/www/html/cache /var/www/html/log
 
-echo "AtoM configurado. Iniciando Apache..."
-exec apache2-foreground
+echo "AtoM configurado. Iniciando PHP-FPM..."
+exec php-fpm

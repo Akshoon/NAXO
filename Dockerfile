@@ -59,7 +59,11 @@ RUN chmod -R 775 /var/www/html/cache /var/www/html/log /var/www/html/uploads
 # Log de errores PHP
 RUN touch /var/log/php_errors.log && chmod 666 /var/log/php_errors.log
 
+# Copiar script de entrada
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Puerto FPM
 EXPOSE 9000
 
-CMD ["php-fpm"]
+CMD ["/entrypoint.sh"]
