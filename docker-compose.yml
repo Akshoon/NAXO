@@ -83,7 +83,7 @@ services:
     build:
       context: ./chatbot
       dockerfile: Dockerfile
-    platform: linux/amd64
+    # platform: linux/amd64  <-- COMENTADO: Dejamos que use ARM nativo para evitar 'exec format error'
     container_name: Docker_Archivo
     ports:
       - "5000:5000"
@@ -96,7 +96,7 @@ services:
   # --- 5. FRONTEND (Tu Portada + Nginx Proxy) ---
   frontend:
     image: nginx:alpine
-    platform: linux/amd64
+    # platform: linux/amd64 <-- COMENTADO: Nginx alpine tiene soporte ARM nativo
     container_name: uah_frontend
     restart: always
     ports:
