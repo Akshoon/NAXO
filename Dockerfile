@@ -1,4 +1,4 @@
-FROM php:7.4-apache-bullseye
+FROM php:7.4-fpm-bullseye
 
 # Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -36,7 +36,7 @@ RUN echo "[PHP]" > /usr/local/etc/php/conf.d/atom.ini && \
     echo "log_errors = On" >> /usr/local/etc/php/conf.d/atom.ini && \
     echo "error_log = /var/log/php_errors.log" >> /usr/local/etc/php/conf.d/atom.ini
 
-# --- Descargar AtoM 2.8 (más compatible con PHP 7.4) ---
+# --- Descargar AtoM 2.8 ---
 RUN git clone -b stable/2.8.x --depth 1 https://github.com/artefactual/atom.git /var/www/html
 
 WORKDIR /var/www/html
@@ -56,18 +56,10 @@ RUN mkdir -p /var/www/html/cache /var/www/html/log /var/www/html/uploads
 RUN chown -R www-data:www-data /var/www/html/cache /var/www/html/log /var/www/html/uploads
 RUN chmod -R 775 /var/www/html/cache /var/www/html/log /var/www/html/uploads
 
-# Activar mod_rewrite
-RUN a2enmod rewrite
-
-# Configurar Apache para permitir .htaccess
-RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
 # Log de errores PHP
 RUN touch /var/log/php_errors.log && chmod 666 /var/log/php_errors.log
 
-# Copiar script de entrada
-COPY docker/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+# Puerto FPM
+EXPOSE 9000
 
-EXPOSE 80
-CMD ["/entrypoint.sh"]
+CMD ["php-fpm"]
