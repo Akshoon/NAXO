@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-bullseye
+FROM eclipse-temurin:8-jre
 
 # Crear usuario elasticsearch
 RUN groupadd -g 1000 elasticsearch && \
