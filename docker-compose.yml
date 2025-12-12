@@ -2,6 +2,7 @@ services:
   # --- 1. BASE DE DATOS (AtoM) ---
   db:
     image: percona:5.7
+    platform: linux/amd64
     container_name: atom_db
     restart: always
     environment:
@@ -16,6 +17,7 @@ services:
   # --- 2. ELASTICSEARCH ---
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+    platform: linux/amd64
     container_name: atom_es
     environment:
       - discovery.type=single-node
@@ -32,12 +34,14 @@ services:
   # --- 3. GEARMAN (requerido por AtoM) ---
   gearman:
     image: artefactual/gearmand:latest
+    platform: linux/amd64
     container_name: atom_gearman
     restart: always
 
   # --- 4. ATOM 2.9 (PHP-FPM Backend) ---
   atom:
     image: unillett/atom:latest
+    platform: linux/amd64
     container_name: atom_app
     restart: unless-stopped
     depends_on:
@@ -61,6 +65,7 @@ services:
   # --- 5. NGINX para AtoM ---
   atom_nginx:
     image: nginx:alpine
+    platform: linux/amd64
     container_name: atom_nginx
     restart: always
     ports:
@@ -78,6 +83,7 @@ services:
     build:
       context: ./chatbot
       dockerfile: Dockerfile
+    platform: linux/amd64
     container_name: Docker_Archivo
     ports:
       - "5000:5000"
@@ -90,6 +96,7 @@ services:
   # --- 5. FRONTEND (Tu Portada + Nginx Proxy) ---
   frontend:
     image: nginx:alpine
+    platform: linux/amd64
     container_name: uah_frontend
     restart: always
     ports:
